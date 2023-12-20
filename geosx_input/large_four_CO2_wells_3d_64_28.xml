@@ -1,0 +1,789 @@
+<!--Input file for GEOS branch origin/feature/hamon/relpermEndpointScaling-->
+<?xml version="1.0" ?>
+
+<Problem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="/usr/workspace/tang39/GEOSX/GEOSX/src/coreComponents/fileIO/schema/schema.xsd">
+  <Solvers
+    gravityVector="0.0, 0.0, -9.81">
+    <CompositionalMultiphaseReservoir
+      name="reservoirSystem"
+      flowSolverName="compositionalMultiphaseFlow"
+      wellSolverName="compositionalMultiphaseWell"
+      logLevel="1"
+      initialDt="1e3"      
+      targetRegions="{ Region1, wellRegion1 }">
+      <NonlinearSolverParameters 
+        newtonTol="1.0e-4"
+        lineSearchAction="Attempt"
+        maxTimeStepCuts="10"
+        dtIncIterLimit="0.45"
+        dtCutIterLimit="0.99"
+        newtonMaxIter="20"/>   
+       <LinearSolverParameters
+        solverType="fgmres"
+        preconditionerType="mgr"
+        krylovTol="1.0e-3"
+	      krylovAdaptiveTol="1"
+        krylovWeakestTol="1e-2"
+        logLevel="0"/>
+    </CompositionalMultiphaseReservoir>
+
+    <CompositionalMultiphaseFVM
+      name="compositionalMultiphaseFlow"
+      logLevel="1"
+      discretization="fluidTPFA"
+      targetRegions="{ Region1 }"
+      fluidNames="{ fluid1 }"
+      solidNames="{ rock }"
+      relPermNames="{ relperm }"
+      temperature="324.165"
+      useMass="1"/>
+
+    <CompositionalMultiphaseWell
+      name="compositionalMultiphaseWell"
+      logLevel="1"
+      targetRegions="{ wellRegion1}"
+      fluidNames="{ fluid1 }"
+      relPermNames="{ relperm }"
+      wellTemperature="324.165"
+      useMass="1">
+      <!-- CO2 injection rate in (kg/s): 5.8, 25.2, 25.7, 10.5 -->
+      <!-- CO2 injection rate in (m^3/s): divide by CO2 density at reservoir condition 743kg/m^3-->
+      <WellControls
+        name="wellControls1"
+        type="injector"
+        control="totalVolRate"
+        referenceElevation="91.44"
+        targetBHP="1e8"
+        targetTotalRate="0.0904"
+        injectionStream="{ 0.999, 0.001 }"/>
+    </CompositionalMultiphaseWell>
+  </Solvers>
+
+  <Mesh>
+    <InternalMesh
+      name="mesh1"
+      elementTypes="{ C3D8 }"
+      xCoords="{-10000, 0, 32156.4, 42156.4 }"
+      yCoords="{-10000, 0, 32156.4, 42156.4 }"
+      zCoords="{ 0, 85.344}"
+      nx="{ 5, 64, 5 }"
+      ny="{ 5, 64, 5 }"
+      nz="{ 28 }"
+      cellBlockNames="{ cb1 }"/>
+   <InternalWell
+      name="well_injector1"
+      wellRegionName="wellRegion1"
+      wellControlsName="wellControls1"
+      meshName="mesh1"
+      polylineNodeCoords="{ { 10744.2, 10744.2, 85.344},
+                            { 10744.2, 10744.2, 0},
+                            { 10744.2, 21412.2, 0},
+                            { 10744.2, 21412.2, 85},
+                            { 21412.2, 21412.2, 85},
+                            { 21412.2, 21412.2, 0},
+                            { 21412.2, 10744.2, 0},
+                            { 21412.2, 10744.2, 85}}"
+      polylineSegmentConn="{ { 0, 1 },
+                             { 1, 2 },
+                             { 2, 3 },
+                             { 3, 4 },
+                             { 4, 5 },
+                             { 5, 6 },
+                             { 6, 7 }}"
+      radius="0.1"
+      numElementsPerSegment="28">
+
+      <Perforation
+        name="injector1_perf1"
+        distanceFromHead="1.524"/>
+      <Perforation
+        name="injector1_perf2"
+        distanceFromHead="4.572"/>
+      <Perforation
+        name="injector1_perf3"
+        distanceFromHead="7.62"/>
+      <Perforation
+        name="injector1_perf4"
+        distanceFromHead="10.668"/>
+      <Perforation
+        name="injector1_perf5"
+        distanceFromHead="13.716"/>
+      <Perforation
+        name="injector1_perf6"
+        distanceFromHead="16.764"/>
+      <Perforation
+        name="injector1_perf7"
+        distanceFromHead="19.812"/>
+      <Perforation
+        name="injector1_perf8"
+        distanceFromHead="22.86"/>
+      <Perforation
+        name="injector1_perf9"
+        distanceFromHead="25.908"/>
+      <Perforation
+        name="injector1_perf10"
+        distanceFromHead="28.956"/>
+      <Perforation
+        name="injector1_perf11"
+        distanceFromHead="32.004"/>
+      <Perforation
+        name="injector1_perf12"
+        distanceFromHead="35.052"/>
+      <Perforation
+        name="injector1_perf13"
+        distanceFromHead="38.1"/>
+      <Perforation
+        name="injector1_perf14"
+        distanceFromHead="41.148"/>
+      <Perforation
+        name="injector1_perf15"
+        distanceFromHead="44.196"/>
+      <Perforation
+        name="injector1_perf16"
+        distanceFromHead="47.244"/>
+      <Perforation
+        name="injector1_perf17"
+        distanceFromHead="50.292"/>
+      <Perforation
+        name="injector1_perf18"
+        distanceFromHead="53.34"/>
+      <Perforation
+        name="injector1_perf19"
+        distanceFromHead="56.388"/>
+      <Perforation
+        name="injector1_perf20"
+        distanceFromHead="59.436"/>
+      <Perforation
+        name="injector1_perf21"
+        distanceFromHead="62.484"/>
+      <Perforation
+        name="injector1_perf22"
+        distanceFromHead="65.532"/>
+      <Perforation
+        name="injector1_perf23"
+        distanceFromHead="68.58"/>
+      <Perforation
+        name="injector1_perf24"
+        distanceFromHead="71.628"/>
+      <Perforation
+        name="injector1_perf25"
+        distanceFromHead="74.676"/>
+      <Perforation
+        name="injector1_perf26"
+        distanceFromHead="77.724"/>
+      <Perforation
+        name="injector1_perf27"
+        distanceFromHead="80.772"/>
+      <Perforation
+        name="injector1_perf28"
+        distanceFromHead="83.82"/>
+      <Perforation
+        name="injector1_perf29"
+        distanceFromHead="10754.868"/>
+      <Perforation
+        name="injector1_perf30"
+        distanceFromHead="10757.916"/>
+      <Perforation
+        name="injector1_perf31"
+        distanceFromHead="10760.964"/>
+      <Perforation
+        name="injector1_perf32"
+        distanceFromHead="10764.012"/>
+      <Perforation
+        name="injector1_perf33"
+        distanceFromHead="10767.06"/>
+      <Perforation
+        name="injector1_perf34"
+        distanceFromHead="10770.108"/>
+      <Perforation
+        name="injector1_perf35"
+        distanceFromHead="10773.156"/>
+      <Perforation
+        name="injector1_perf36"
+        distanceFromHead="10776.204"/>
+      <Perforation
+        name="injector1_perf37"
+        distanceFromHead="10779.252"/>
+      <Perforation
+        name="injector1_perf38"
+        distanceFromHead="10782.3"/>
+      <Perforation
+        name="injector1_perf39"
+        distanceFromHead="10785.348"/>
+      <Perforation
+        name="injector1_perf40"
+        distanceFromHead="10788.396"/>
+      <Perforation
+        name="injector1_perf41"
+        distanceFromHead="10791.444"/>
+      <Perforation
+        name="injector1_perf42"
+        distanceFromHead="10794.492"/>
+      <Perforation
+        name="injector1_perf43"
+        distanceFromHead="10797.54"/>
+      <Perforation
+        name="injector1_perf44"
+        distanceFromHead="10800.588"/>
+      <Perforation
+        name="injector1_perf45"
+        distanceFromHead="10803.636"/>
+      <Perforation
+        name="injector1_perf46"
+        distanceFromHead="10806.684"/>
+      <Perforation
+        name="injector1_perf47"
+        distanceFromHead="10809.732"/>
+      <Perforation
+        name="injector1_perf48"
+        distanceFromHead="10812.78"/>
+      <Perforation
+        name="injector1_perf49"
+        distanceFromHead="10815.828"/>
+      <Perforation
+        name="injector1_perf50"
+        distanceFromHead="10818.876"/>
+      <Perforation
+        name="injector1_perf51"
+        distanceFromHead="10821.924"/>
+      <Perforation
+        name="injector1_perf52"
+        distanceFromHead="10824.972"/>
+      <Perforation
+        name="injector1_perf53"
+        distanceFromHead="10828.02"/>
+      <Perforation
+        name="injector1_perf54"
+        distanceFromHead="10831.068"/>
+      <Perforation
+        name="injector1_perf55"
+        distanceFromHead="10834.116"/>
+      <Perforation
+        name="injector1_perf56"
+        distanceFromHead="10837.164"/>
+      <Perforation
+        name="injector1_perf57"
+        distanceFromHead="21507.868"/>
+      <Perforation
+        name="injector1_perf58"
+        distanceFromHead="21510.916"/>
+      <Perforation
+        name="injector1_perf59"
+        distanceFromHead="21513.964"/>
+      <Perforation
+        name="injector1_perf60"
+        distanceFromHead="21517.012"/>
+      <Perforation
+        name="injector1_perf61"
+        distanceFromHead="21520.06"/>
+      <Perforation
+        name="injector1_perf62"
+        distanceFromHead="21523.108"/>
+      <Perforation
+        name="injector1_perf63"
+        distanceFromHead="21526.156"/>
+      <Perforation
+        name="injector1_perf64"
+        distanceFromHead="21529.204"/>
+      <Perforation
+        name="injector1_perf65"
+        distanceFromHead="21532.252"/>
+      <Perforation
+        name="injector1_perf66"
+        distanceFromHead="21535.3"/>
+      <Perforation
+        name="injector1_perf67"
+        distanceFromHead="21538.348"/>
+      <Perforation
+        name="injector1_perf68"
+        distanceFromHead="21541.396"/>
+      <Perforation
+        name="injector1_perf69"
+        distanceFromHead="21544.444"/>
+      <Perforation
+        name="injector1_perf70"
+        distanceFromHead="21547.492"/>
+      <Perforation
+        name="injector1_perf71"
+        distanceFromHead="21550.54"/>
+      <Perforation
+        name="injector1_perf72"
+        distanceFromHead="21553.588"/>
+      <Perforation
+        name="injector1_perf73"
+        distanceFromHead="21556.636"/>
+      <Perforation
+        name="injector1_perf74"
+        distanceFromHead="21559.684"/>
+      <Perforation
+        name="injector1_perf75"
+        distanceFromHead="21562.732"/>
+      <Perforation
+        name="injector1_perf76"
+        distanceFromHead="21565.78"/>
+      <Perforation
+        name="injector1_perf77"
+        distanceFromHead="21568.828"/>
+      <Perforation
+        name="injector1_perf78"
+        distanceFromHead="21571.876"/>
+      <Perforation
+        name="injector1_perf79"
+        distanceFromHead="21574.924"/>
+      <Perforation
+        name="injector1_perf80"
+        distanceFromHead="21577.972"/>
+      <Perforation
+        name="injector1_perf81"
+        distanceFromHead="21581.02"/>
+      <Perforation
+        name="injector1_perf82"
+        distanceFromHead="21584.068"/>
+      <Perforation
+        name="injector1_perf83"
+        distanceFromHead="21587.116"/>
+      <Perforation
+        name="injector1_perf84"
+        distanceFromHead="21590.164"/>
+      <Perforation
+        name="injector1_perf85"
+        distanceFromHead="32260.868"/>
+      <Perforation
+        name="injector1_perf86"
+        distanceFromHead="32263.916"/>
+      <Perforation
+        name="injector1_perf87"
+        distanceFromHead="32266.964"/>
+      <Perforation
+        name="injector1_perf88"
+        distanceFromHead="32270.012"/>
+      <Perforation
+        name="injector1_perf89"
+        distanceFromHead="32273.06"/>
+      <Perforation
+        name="injector1_perf90"
+        distanceFromHead="32276.108"/>
+      <Perforation
+        name="injector1_perf91"
+        distanceFromHead="32279.156"/>
+      <Perforation
+        name="injector1_perf92"
+        distanceFromHead="32282.204"/>
+      <Perforation
+        name="injector1_perf93"
+        distanceFromHead="32285.252"/>
+      <Perforation
+        name="injector1_perf94"
+        distanceFromHead="32288.3"/>
+      <Perforation
+        name="injector1_perf95"
+        distanceFromHead="32291.348"/>
+      <Perforation
+        name="injector1_perf96"
+        distanceFromHead="32294.396"/>
+      <Perforation
+        name="injector1_perf97"
+        distanceFromHead="32297.444"/>
+      <Perforation
+        name="injector1_perf98"
+        distanceFromHead="32300.492"/>
+      <Perforation
+        name="injector1_perf99"
+        distanceFromHead="32303.54"/>
+      <Perforation
+        name="injector1_perf100"
+        distanceFromHead="32306.588"/>
+      <Perforation
+        name="injector1_perf101"
+        distanceFromHead="32309.636"/>
+      <Perforation
+        name="injector1_perf102"
+        distanceFromHead="32312.684"/>
+      <Perforation
+        name="injector1_perf103"
+        distanceFromHead="32315.732"/>
+      <Perforation
+        name="injector1_perf104"
+        distanceFromHead="32318.78"/>
+      <Perforation
+        name="injector1_perf105"
+        distanceFromHead="32321.828"/>
+      <Perforation
+        name="injector1_perf106"
+        distanceFromHead="32324.876"/>
+      <Perforation
+        name="injector1_perf107"
+        distanceFromHead="32327.924"/>
+      <Perforation
+        name="injector1_perf108"
+        distanceFromHead="32330.972"/>
+      <Perforation
+        name="injector1_perf109"
+        distanceFromHead="32334.02"/>
+      <Perforation
+        name="injector1_perf110"
+        distanceFromHead="32337.068"/>
+      <Perforation
+        name="injector1_perf111"
+        distanceFromHead="32340.116"/>
+      <Perforation
+        name="injector1_perf112"
+        distanceFromHead="32343.164"/>
+    </InternalWell>
+  </Mesh>
+
+  <Geometry>
+    <Box
+      name="all"
+      xMin="-10001, -10001, -0.1"
+      xMax="42157, 42157, 92"/>
+    <Box
+      name="sink_1"
+      xMin="-10001, -10001, -0.1"
+      xMax="42157, -8999, 92"/>
+    <Box
+      name="sink_2"
+      xMin="-10001, -10001, -0.1"
+      xMax="-8999, 42157, 92"/>
+    <Box
+      name="sink_3"
+      xMin="41156, -10001, -0.1"
+      xMax="42157, 42157, 92"/>       
+    <Box
+      name="sink_4"
+      xMin="-10001, 41156, -0.1"
+      xMax="42157, 42157, 92"/>    
+  </Geometry>  
+
+  <Events
+    maxTime="3.16e8">
+
+    <PeriodicEvent
+      name="outputs"
+      timeFrequency="1.5768e8"
+      targetExactTimestep="1"
+      target="/Outputs/siloOutput"/>
+
+    <PeriodicEvent
+      name="solverApplications"
+      maxEventDt="8e5"
+      target="/Solvers/reservoirSystem"/>
+
+    <PeriodicEvent
+      name="restarts"
+      timeFrequency="3.1536e7"
+      targetExactTimestep="1"
+      target="/Outputs/restartOutput"/>
+
+  </Events>
+
+  <NumericalMethods>
+    <FiniteVolume>
+      <TwoPointFluxApproximation
+        name="fluidTPFA"
+        fieldName="pressure"
+        coefficientName="permeability"/>
+    </FiniteVolume>
+  </NumericalMethods>
+
+  <ElementRegions>
+    <CellElementRegion
+      name="Region1"
+      cellBlocks="{ cb1 }"
+      materialList="{ fluid1, rock, relperm }"/>
+
+    <WellElementRegion
+      name="wellRegion1"
+      materialList="{ fluid1, relperm }"/>
+
+  </ElementRegions>
+
+  <Constitutive>
+    <CO2BrineFluid
+      name="fluid1"
+      phaseNames="{ gas, water }"
+      componentNames="{ co2, water }"
+      componentMolarWeight="{ 44e-3, 18e-3 }"
+      phasePVTParaFiles="{ pvt_tables/pvtgas.txt, pvt_tables/pvtliquid.txt }"
+      flashModelParaFile="pvt_tables/co2flash.txt"/>
+
+    <PoreVolumeCompressibleSolid
+      name="rock"
+      referencePressure="0.0"
+      compressibility="1e-9"/>
+
+    <BrooksCoreyRelativePermeability
+      name="relperm"
+      phaseNames="{ gas, water }"
+      defaultPhaseMinVolumeFraction="{ 0, 0.294 }"
+      defaultPhaseRelPermExponent="{ 5.01, 1.825 }"
+      defaultPhaseRelPermMaxValue="{ 0.55, 1}"/>
+
+    <!-- BrooksCoreyRelativePermeability
+      name="relperm"
+      phaseNames="{ gas, water }"
+      phaseMinVolumeFraction="{ 0, 0.605 }"
+      phaseRelPermExponent="{ 5.01, 6.35963 }"
+      phaseRelPermMaxValue="{ 0.0149, 1}"/ -->      
+  </Constitutive>
+
+  <FieldSpecifications>
+    <FieldSpecification
+      name="permx"
+      component="0"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="permeability"
+      scale="1"
+      functionName="permFunc"/>
+
+    <FieldSpecification
+      name="permy"
+      component="1"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="permeability"
+      scale="1"
+      functionName="permFunc"/>
+
+    <FieldSpecification
+      name="permz"
+      component="2"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="permeability"
+      scale="1"
+      functionName="zpermFunc"/>
+
+    <FieldSpecification
+      name="referencePorosity"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="referencePorosity"
+      scale="1"
+      functionName="poroFunc"/>
+
+    <!-- relative permeability: -->
+
+    <FieldSpecification
+      name="relperm_minvolfrac2"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="relperm_phaseMinVolumeFraction"
+      component="1"
+      scale="1"
+      functionName="minvolfrac_2"/>
+
+    <FieldSpecification
+      name="relperm_relpermexp2"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="relperm_phaseRelPermExponent"
+      component="1"
+      scale="1"
+      functionName="relpermexp_2"/>
+
+    <FieldSpecification
+      name="relperm_relpermmax"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="relperm_phaseRelPermMaxValue"
+      component="0"
+      scale="1"
+      functionName="relpermmax_1"/>
+
+    <!-- Initial pressure: -->
+    <FieldSpecification
+      name="initialPressure"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="pressure"
+      scale="1"
+      functionName="InitPres"/>
+
+    <!-- Initial composition: no water, only heavy hydrocarbon components and N2 -->
+    <FieldSpecification
+      name="initialComposition_co2"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="0"
+      scale="0.001"/>
+
+    <FieldSpecification
+      name="initialComposition_water"
+      initialCondition="1"
+      setNames="{ all }"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="1"
+      scale="0.999"/>
+
+     <!-- Boundary Condition -->
+
+    <FieldSpecification
+      name="sinkTerm_p_1"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="pressure"
+      scale="1"
+      setNames="{ sink_1 }"
+      functionName="InitPres"/>
+
+    <FieldSpecification
+      name="sinkTerm_co2_1"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="0"
+      scale="0.001"
+      setNames="{ sink_1 }"/>   
+
+    <FieldSpecification
+      name="sinkTerm_water_1"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="1"
+      scale="0.999"
+      setNames="{ sink_1 }"/>      
+
+    <FieldSpecification
+      name="sinkTerm_p_2"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="pressure"
+      scale="1"
+      setNames="{ sink_2 }"
+      functionName="InitPres"/>
+
+    <FieldSpecification
+      name="sinkTerm_co2_2"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="0"
+      scale="0.001"
+      setNames="{ sink_2 }"/>   
+
+    <FieldSpecification
+      name="sinkTerm_water_2"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="1"
+      scale="0.999"
+      setNames="{ sink_2 }"/>     
+
+    <FieldSpecification
+      name="sinkTerm_p_3"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="pressure"
+      scale="1"
+      setNames="{ sink_3 }"
+      functionName="InitPres"/>
+
+    <FieldSpecification
+      name="sinkTerm_co2_3"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="0"
+      scale="0.001"
+      setNames="{ sink_3 }"/>   
+
+    <FieldSpecification
+      name="sinkTerm_water_3"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="1"
+      scale="0.999"
+      setNames="{ sink_3 }"/>   
+
+    <FieldSpecification
+      name="sinkTerm_p_4"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="pressure"
+      scale="1"
+      setNames="{ sink_4 }"
+      functionName="InitPres"/>
+
+    <FieldSpecification
+      name="sinkTerm_co2_4"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="0"
+      scale="0.001"
+      setNames="{ sink_4 }"/>   
+
+    <FieldSpecification
+      name="sinkTerm_water_4"
+      objectPath="ElementRegions/Region1/cb1"
+      fieldName="globalCompFraction"
+      component="1"
+      scale="0.999"
+      setNames="{ sink_4 }"/>           
+
+  </FieldSpecifications>
+
+  <Functions>
+    <TableFunction 
+      name="permFunc"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/Permeability.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="zpermFunc"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/Permeability_z.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="poroFunc"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/Porosity.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="minvolfrac_2"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/minvolfrac_2.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="relpermexp_2"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/relpermexp_2.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="relpermmax_1"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/x.Table,geo_tables/y.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/relpermmax_1.Table"
+      interpolation="nearest" />
+
+    <TableFunction 
+      name="InitPres"
+      inputVarNames="{elementCenter}"
+      coordinateFiles="{geo_tables/Dummy.Table,geo_tables/Dummy.Table, geo_tables/z.Table}"
+      voxelFile="geo_tables/Init_Pres.Table"
+      interpolation="nearest" />
+      
+  </Functions>  
+
+  <Outputs>
+    <Silo
+      name="siloOutput"/>
+    <Restart
+      name="restartOutput"/>
+  </Outputs>
+</Problem>
